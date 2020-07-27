@@ -24,7 +24,8 @@
 	self.noBorder = [BoolParser parse:dict key:@"noBorder"];
 	self.animate = [BoolParser parse:dict key:@"animate"];
 	self.searchBar = [BoolParser parse:dict key:@"searchBar"];
-	self.searchBarHiddenWhenScrolling = [BoolParser parse:dict key:@"searchBarHiddenWhenScrolling"];
+    self.searchBarHiddenWhenScrolling = [BoolParser parse:dict key:@"searchBarHiddenWhenScrolling"];
+    self.searchBarBackgroundColor = [ColorParser parse:dict key:@"searchBarBackgroundColor"];
 	self.hideNavBarOnFocusSearchBar = [BoolParser parse:dict key:@"hideNavBarOnFocusSearchBar"];
 	self.testID = [TextParser parse:dict key:@"testID"];
 	self.barStyle = [TextParser parse:dict key:@"barStyle"];

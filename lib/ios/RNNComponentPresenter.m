@@ -70,7 +70,11 @@
         if (withDefault.topBar.hideNavBarOnFocusSearchBar.hasValue) {
             hideNavBarOnFocusSearchBar = withDefault.topBar.hideNavBarOnFocusSearchBar.get;
         }
-        [viewController setSearchBarWithPlaceholder:[withDefault.topBar.searchBarPlaceholder getWithDefaultValue:@""] hideNavBarOnFocusSearchBar:hideNavBarOnFocusSearchBar];
+        
+        [viewController setSearchBarWithPlaceholder:[options.topBar.searchBarPlaceholder getWithDefaultValue:@""] hideNavBarOnFocusSearchBar:hideNavBarOnFocusSearchBar backgroundColor:[options.topBar.searchBarBackgroundColor getWithDefaultValue:nil] barStyle:[RCTConvert UIBarStyle:[withDefault.topBar.barStyle getWithDefaultValue:@"default"]]];
+        if (withDefault.topBar.searchBarHiddenWhenScrolling.hasValue) {
+            [viewController setSearchBarHiddenWhenScrolling:[withDefault.topBar.searchBarHiddenWhenScrolling getWithDefaultValue:NO]];
+        }
     }
     
     [_topBarTitlePresenter applyOptions:withDefault.topBar];
@@ -94,7 +98,7 @@
     [super mergeOptions:options resolvedOptions:currentOptions];
     RNNNavigationOptions * withDefault    = (RNNNavigationOptions *) [[currentOptions overrideOptions:options] withDefault:[self defaultOptions]];
     UIViewController* viewController = self.boundViewController;
-
+    
     if (options.backgroundImage.hasValue) {
         [viewController setBackgroundImage:options.backgroundImage.get];
     }
@@ -104,9 +108,13 @@
         if (options.topBar.hideNavBarOnFocusSearchBar.hasValue) {
             hideNavBarOnFocusSearchBar = options.topBar.hideNavBarOnFocusSearchBar.get;
         }
-        [viewController setSearchBarWithPlaceholder:[options.topBar.searchBarPlaceholder getWithDefaultValue:@""] hideNavBarOnFocusSearchBar:hideNavBarOnFocusSearchBar];
+        
+        [viewController setSearchBarWithPlaceholder:[options.topBar.searchBarPlaceholder getWithDefaultValue:@""] hideNavBarOnFocusSearchBar:hideNavBarOnFocusSearchBar backgroundColor:[options.topBar.searchBarBackgroundColor getWithDefaultValue:nil] barStyle:[RCTConvert UIBarStyle:[withDefault.topBar.barStyle getWithDefaultValue:@"default"]]];
+        if (withDefault.topBar.searchBarHiddenWhenScrolling.hasValue) {
+            [viewController setSearchBarHiddenWhenScrolling:withDefault.topBar.searchBarHiddenWhenScrolling];
+        }
     }
-
+    
     if (options.topBar.drawBehind.hasValue) {
         [viewController setDrawBehindTopBar:options.topBar.drawBehind.get];
     }
@@ -114,11 +122,11 @@
     if (options.bottomTabs.drawBehind.hasValue) {
         [viewController setDrawBehindTabBar:options.bottomTabs.drawBehind.get];
     }
-
+    
     if (options.topBar.title.text.hasValue) {
         [viewController setNavigationItemTitle:options.topBar.title.text.get];
     }
-
+    
     if (options.topBar.largeTitle.visible.hasValue) {
         [viewController setTopBarPrefersLargeTitle:options.topBar.largeTitle.visible.get];
     }
@@ -151,7 +159,7 @@
         [_navigationButtons applyLeftButtons:options.topBar.leftButtons rightButtons:options.topBar.rightButtons defaultLeftButtonStyle:withDefault.topBar.leftButtonStyle defaultRightButtonStyle:withDefault.topBar.rightButtonStyle];
     }
     
-
+    
     if (options.overlay.interceptTouchOutside.hasValue) {
         RCTRootView* rootView = (RCTRootView*)viewController.view;
         rootView.passThroughTouches = !options.overlay.interceptTouchOutside.get;
